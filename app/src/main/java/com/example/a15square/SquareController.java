@@ -20,6 +20,8 @@ public class SquareController implements View.OnClickListener {
         view = v;
     }
 
+    // if button isnt reset button, swap buttons
+    // else reset board
     public void onClick(View v)
     {
         Button button = (Button) v;
@@ -29,6 +31,8 @@ public class SquareController implements View.OnClickListener {
             swapSquare(button);
         }
     }
+
+    // swap the button clicked with the invisible button
 
     public void swapSquare(Button b) {
         int swapR = model.row(b);
@@ -50,20 +54,12 @@ public class SquareController implements View.OnClickListener {
         model.buttons[swapR][swapC].setText("" + view.numbers[4*swapR+swapC]);
         view.toggleButtons(b);
 
-        checkWin();
+        view.checkWin();
     }
 
-    public void checkWin() {
-        boolean flag = true;
-        for (int i = 1; i < view.numbers.length; i++) {
-            if (view.numbers[i] > view.numbers[i-1]) {
-                flag = false;
-            }
-        }
-        if (flag) {
-            model.lay.setBackgroundColor(Color.BLUE);
-        }
-    }
+
+    //initialize the game- create an array of num 1-16 and shuffle them into the numbers array
+    // randomly
     public void initGame()
     {
         int[] temp = new int[model.size * model.size];
@@ -77,7 +73,7 @@ public class SquareController implements View.OnClickListener {
         for (int i = 0; i < model.size; i++) {
             for (int j = 0; j < model.size; j++) {
                 boolean flag = false;
-                while (!flag) {
+                while (!flag) { //until an available button is chosen, choose a random int
                     int shuffle = rng.nextInt(16);
                     if (temp[shuffle] != 0) {
                         view.numbers[4*i+j] = temp[shuffle];

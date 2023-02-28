@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
         SquareModel model = new SquareModel();
         SquareView view = new SquareView(model);
 
+        // code referenced from FlappyBird2 in CS301
+
         view.addButton(0,0, findViewById(R.id.b_11));
         view.addButton(0,1, findViewById(R.id.b_12));
         view.addButton(0,2, findViewById(R.id.b_13));

@@ -1,5 +1,6 @@
 package com.example.a15square;
 
+import android.graphics.Color;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -9,6 +10,7 @@ public class SquareView {
 
     private SquareModel model;
 
+    // array of numbers to see the order of the buttons
     public int[] numbers = new int[16];
 
     public SquareView(SquareModel m)
@@ -21,6 +23,8 @@ public class SquareView {
         model.buttons[row][col] = b;
     }
 
+    // helper method for swap buttons, makes adjacent buttons to the blank square clickable and
+    // everything else un-clickable
     public void toggleButtons(Button button) {
         for (int i = 0; i < model.size; i++) {
             for (int j = 0; j < model.size; j++) {
@@ -49,6 +53,21 @@ public class SquareView {
         }
         return;
 
+    }
+
+    // check if win through seeing if numbers array is in ascending order
+
+    public void checkWin() {
+        boolean flag = true;
+        for (int i = 1; i < numbers.length; i++) {
+            if (numbers[i] > numbers[i-1]) {
+                flag = false;
+            }
+        }
+        if (flag) {
+            model.lay.setBackgroundColor(Color.BLUE);
+            // if theres a win, then change background color to blue
+        }
     }
     public void setListener(SquareController ocl)
     {
